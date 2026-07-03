@@ -1,30 +1,29 @@
-def slow_function():
-    total = 0
-    for i in range(5_000_000):
-        total += i
-    return total
+import random
 
 
-def medium_function():
-    data = []
-    for i in range(100_000):
-        data.append(i * i)
-    return data
+def find_common_slow(a, b):
+    common = []
+    for item in a:
+        if item in b:      # slow when b is a large list
+            common.append(item)
+    return common
 
 
-def fast_function():
-    return sum(range(1000))
+def find_common_fast(a, b):
+    b_set = set(b)        # convert list to set once
+    common = []
+    for item in a:
+        if item in b_set: # fast membership check
+            common.append(item)
+    return common
 
-def mid_fast_function():
-    total = 0
-    for i in range(1_000_000):
-        total += i
-    return total    
 
 def main():
-    slow_function()
-    medium_function()
-    fast_function()
+    a = [random.randint(1, 200000) for _ in range(50000)]
+    b = [random.randint(1, 200000) for _ in range(50000)]
+
+    find_common_slow(a, b)
+    find_common_fast(a, b)
 
 
 if __name__ == "__main__":
